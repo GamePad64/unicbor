@@ -10,12 +10,12 @@ else()
 endif ()
 
 enable_testing()
-find_package(GTest REQUIRED)
-include_directories(${GTEST_INCLUDE_DIRS})
+find_package(GTest)
+add_subdirectory(../contrib/googletest/googletest gtest)
 
 function(create_test NAME)
     add_executable(test_${NAME} test_${NAME}.cpp)
-    target_link_libraries(test_${NAME} ${GTEST_BOTH_LIBRARIES} cborpp pthread)
+    target_link_libraries(test_${NAME} gtest gtest_main cborpp)
     GTEST_ADD_TESTS(test_${NAME} 0 test_${NAME}.cpp)
 endfunction(create_test)
 

@@ -25,6 +25,7 @@ target_include_directories(
 #============================================================================
 
 # Boost
+set(BOOST_ROOT contrib/boost)
 find_package(Boost REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 # /Boost

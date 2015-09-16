@@ -4,3 +4,6 @@
 [submodule "contrib/half"]
 	path = contrib/half
 	url = https://github.com/GamePad64/half.git
+[submodule "contrib/boost"]
+	path = contrib/boost
+	url = https://github.com/boostorg/boost.git

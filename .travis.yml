@@ -3,17 +3,27 @@ sudo: false
 addons:
   apt:
     sources:
-    - boost-latest
-    - llvm-toolchain-precise-3.7
-    - ubuntu-toolchain-r-test
+      - llvm-toolchain-precise-3.7
+      - ubuntu-toolchain-r-test
+    packages:
+      - gcc-5
+      - g++-5
+      - clang-3.8
 compiler:
   - gcc
   - clang
 install:
+  - git submodule update --init --recursive
+  # CMake hack
   - wget -q http://www.cmake.org/files/v3.3/cmake-3.3.1-Linux-x86_64.tar.gz;
   - tar xzf ./cmake-3.3.1-Linux-x86_64.tar.gz
   - rm -f ./cmake-3.3.1-Linux-x86_64.tar.gz
   - export PATH=cmake-3.3.1-Linux-x86_64/bin:$PATH
+  # Boost
+  - cd contrib/boost
+  - ./bootstrap.sh
+  - ./b2 headers
+  - cd ../..
 script:
   - cmake .
   - make

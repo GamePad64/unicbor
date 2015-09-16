@@ -1,0 +1,6 @@
+[submodule "contrib/googletest"]
+	path = contrib/googletest
+	url = https://github.com/google/googletest.git
+[submodule "contrib/half"]
+	path = contrib/half
+	url = https://github.com/GamePad64/half.git

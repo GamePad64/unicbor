@@ -1,0 +1,20 @@
+language: cpp
+sudo: false
+addons:
+  apt:
+    sources:
+    - boost-latest
+    - llvm-toolchain-precise-3.7
+    - ubuntu-toolchain-r-test
+compiler:
+  - gcc
+  - clang
+install:
+  - wget -q http://www.cmake.org/files/v3.3/cmake-3.3.1-Linux-x86_64.tar.gz;
+  - tar xzf ./cmake-3.3.1-Linux-x86_64.tar.gz
+  - rm -f ./cmake-3.3.1-Linux-x86_64.tar.gz
+  - export PATH=cmake-3.3.1-Linux-x86_64/bin:$PATH
+script:
+  - cmake .
+  - make
+  - make test

@@ -29,14 +29,14 @@ undefined_t undefined;
 using half_float::half;
 
 enum class type_mask : uint8_t {
-	UINT 		 = 0b00000000,
-	NEGATIVE_INT = 0b00100000,
-	BYTE_STRING	 = 0b01000000,
-	TEXT_STRING	 = 0b01100000,
-	ARRAY		 = 0b10000000,
-	MAP			 = 0b10100000,
-	TAG			 = 0b11000000,
-	FLOAT		 = 0b11100000
+	UINT 		 = 0,
+	NEGATIVE_INT = 1 << 5,
+	BYTE_STRING	 = 2 << 5,
+	TEXT_STRING	 = 3 << 5,
+	ARRAY		 = 4 << 5,
+	MAP			 = 5 << 5,
+	TAG			 = 6 << 5,
+	FLOAT		 = 7 << 5
 };
 
 // RFC 7049 §2.2.  Floating-Point Numbers and Values with No Content

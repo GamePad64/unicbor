@@ -27,6 +27,7 @@
 #include <boost/lexical_cast.hpp>
 
 #include <boost/predef.h>
+#include <boost/bimap.hpp>
 
 #include <boost/property_tree/info_parser.hpp>
 #include <boost/property_tree/json_parser.hpp>
@@ -53,6 +54,7 @@
 #include <stdexcept>
 #include <string>
 #include <thread>
+#include <tuple>
 #include <unordered_map>
 #include <vector>
 

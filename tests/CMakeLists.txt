@@ -20,3 +20,5 @@ function(create_test NAME)
 endfunction(create_test)
 
 create_test(packer)
+create_test(objectpacker)
+create_test(objectstreampacker)

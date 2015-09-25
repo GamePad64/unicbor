@@ -21,6 +21,8 @@
 #include <cborpp/packer.h>
 #include <gtest/gtest.h>
 
+#include "testdata.h"
+
 class TestPacker : public ::testing::Test {
 protected:
     void SetUp() {
@@ -38,7 +40,7 @@ protected:
 
 TEST_F(TestPacker, int1) {
     packer_->pack(0);
-    ASSERT_EQ(std::string("\0", 1), os_.str());
+	ASSERT_EQ(int1, os_.str());
 }
 
 TEST_F(TestPacker, int2) {

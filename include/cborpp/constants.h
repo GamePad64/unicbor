@@ -28,6 +28,7 @@ undefined_t undefined;
 
 using half_float::half;
 
+// RFC 7049 §2.1.  Floating-Point Numbers and Values with No Content
 enum class type_mask : uint8_t {
 	UINT 		 = 0,
 	NEGATIVE_INT = 1 << 5,
@@ -63,6 +64,8 @@ enum class indefinite_marker : uint8_t {
 	BREAK_CODE = uint8_t(type_mask::FLOAT) | uint8_t(31)
 };
 
+// IANA Registry: https://www.iana.org/assignments/cbor-tags/cbor-tags.xhtml
+// (This is not complete, additional tags will be added soon)
 enum class tag : uint64_t {
 	// Date/time
 	DATETIME_STRING = 0,

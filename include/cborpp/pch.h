@@ -29,6 +29,8 @@
 #include <boost/predef.h>
 #include <boost/bimap.hpp>
 
+#include <boost/io/ios_state.hpp>
+
 #include <boost/property_tree/info_parser.hpp>
 #include <boost/property_tree/json_parser.hpp>
 #include <boost/property_tree/ptree.hpp>

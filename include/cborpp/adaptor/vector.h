@@ -49,5 +49,22 @@ struct set<std::vector<X>> {
 	}
 };
 
+template <>
+struct as<std::vector<uint8_t>> {
+	std::vector<uint8_t> operator() (const object& o) const {
+		std::vector<uint8_t> result;
+		result.assign(o.payload().begin(), o.payload().end());
+		return result;
+	}
+};
+
+template <>
+struct set<std::vector<uint8_t>> {
+	void operator() (object& o, std::vector<uint8_t> v) const {
+		o.reset(object::type::BYTE_STRING);
+		o.set(v.data(), v.size());
+	}
+};
+
 } /* namespace adaptor */
 } /* namespace cborpp */

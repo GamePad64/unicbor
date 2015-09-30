@@ -476,7 +476,7 @@ TEST_F(TestObjectPacker, map3){
 	object_->add_item("a");
 	object_->add_item(1);
 	object_->add_item("b");
-	object_->add_item(std::vector<uint8_t>({2, 3}));
+	object_->add_item(std::vector<int8_t>({2, 3}));
 
 	packer_->pack(*object_);
 	ASSERT_EQ(map3, os_.str());

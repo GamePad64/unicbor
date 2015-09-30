@@ -186,14 +186,14 @@ public:
 	}
 
 	template<class T>
-	object(T value) : object(){set(value);}
+	object(T value) : object() {set(value);}
 
 	template<class T>
-	object(const T* data, size_t size) : object(){set(data, size);}
+	object(const T* data, size_t size) : object() {set(data, size);}
 
 	/* Properties */
-	bool is_sequence() const{return type_ == ARRAY || type_ == MAP;}
-	bool is_payload_type() const{return type_ == BYTE_STRING || type_ == TEXT_STRING;}
+	bool is_sequence() const {return type_ == ARRAY || type_ == MAP;}
+	bool is_payload_type() const {return type_ == BYTE_STRING || type_ == TEXT_STRING;}
 
 private:
 	std::vector<tag> tags_;

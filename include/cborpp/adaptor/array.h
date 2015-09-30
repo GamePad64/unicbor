@@ -39,7 +39,7 @@ struct as<std::array<X, N>> {
 	}
 };
 
-template <class X>
+template <class X, size_t N>
 struct set<std::array<X, N>> {
 	void operator() (object& o, std::array<X, N> v) const {
 		o.reset(object::type::ARRAY);

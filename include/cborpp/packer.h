@@ -23,6 +23,7 @@
 #include "pch.h"
 #include "constants.h"
 #include "exceptions.h"
+#include "adaptor/array.h"
 #include "adaptor/bool.h"
 #include "adaptor/char_ptr.h"
 #include "adaptor/float.h"

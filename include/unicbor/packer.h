@@ -38,7 +38,7 @@
 #include "object.h"
 #include "parser_base.h"
 
-namespace cborpp {
+namespace unicbor {
 
 class packer : public parser_base {
 public:
@@ -370,4 +370,4 @@ private:
 	}
 };
 
-} /* namespace cborpp */
+} /* namespace unicbor */

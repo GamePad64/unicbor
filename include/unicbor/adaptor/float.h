@@ -23,24 +23,51 @@
 #include "adaptor_base.h"
 #include "../object.h"
 
-namespace cborpp {
+namespace unicbor {
 
 namespace adaptor {
 
-// Converters
 template <>
-struct as<simple_value> {
-	simple_value operator() (const object& o) const {
-		return simple_value(o.get_uint());
+struct as<half> {
+	half operator() (const object& o) const {
+		return half(o.get_float());
 	}
 };
 
 template <>
-struct set<simple_value> {
-	void operator() (object& o, simple_value v) const {
-		o.set_simple(v);
+struct set<half> {
+	void operator() (object& o, half v) const {
+		o.set_float(v);
+	}
+};
+
+template <>
+struct as<float> {
+	float operator() (const object& o) const {
+		return float(o.get_float());
+	}
+};
+
+template <>
+struct set<float> {
+	void operator() (object& o, float v) const {
+		o.set_float(v);
+	}
+};
+
+template <>
+struct as<double> {
+	double operator() (const object& o) const {
+		return double(o.get_float());
+	}
+};
+
+template <>
+struct set<double> {
+	void operator() (object& o, double v) const {
+		o.set_float(v);
 	}
 };
 
 } /* namespace adaptor */
-} /* namespace cborpp */
+} /* namespace unicbor */

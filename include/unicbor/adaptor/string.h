@@ -23,31 +23,24 @@
 #include "adaptor_base.h"
 #include "../object.h"
 
-namespace cborpp {
+namespace unicbor {
 
 namespace adaptor {
 
 // Converters
-template <class X, size_t N>
-struct as<std::array<X, N>> {
-	std::array<X, N> operator() (const object& o) const {
-		std::array<X, N> result;
-		for(size_t i = 0; i <= std::min(N, o.items().size()); i++){
-			result[i] = o.items().at(i);
-		}
-		return result;
+template <>
+struct as<std::string> {
+	std::string operator() (const object& o) const {
+		return std::string(o.payload().begin(), o.payload().end());
 	}
 };
 
-template <class X, size_t N>
-struct set<std::array<X, N>> {
-	void operator() (object& o, std::array<X, N> v) const {
-		o.reset(object::type::ARRAY);
-		for(const auto& item : v){
-			o.add_item(item);
-		}
+template <>
+struct set<std::string> {
+	void operator() (object& o, std::string v) const {
+		o.set_string(v.data(), v.size());
 	}
 };
 
 } /* namespace adaptor */
-} /* namespace cborpp */
+} /* namespace unicbor */

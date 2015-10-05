@@ -19,28 +19,50 @@
  * THE SOFTWARE.
  */
 #pragma once
-#include "../constants.h"
-#include "adaptor_base.h"
-#include "../object.h"
 
-namespace cborpp {
+#include <half/half.hpp>
 
-namespace adaptor {
+// Boost
+#include <boost/endian/arithmetic.hpp>
+#include <boost/lexical_cast.hpp>
 
-// Converters
-template <>
-struct as<std::string> {
-	std::string operator() (const object& o) const {
-		return std::string(o.payload().begin(), o.payload().end());
-	}
-};
+#include <boost/predef.h>
+#include <boost/bimap.hpp>
 
-template <>
-struct set<std::string> {
-	void operator() (object& o, std::string v) const {
-		o.set_string(v.data(), v.size());
-	}
-};
+#include <boost/io/ios_state.hpp>
 
-} /* namespace adaptor */
-} /* namespace cborpp */
+#include <boost/property_tree/info_parser.hpp>
+#include <boost/property_tree/json_parser.hpp>
+#include <boost/property_tree/ptree.hpp>
+
+// Standard C++ Libraries
+#include <array>
+#include <chrono>
+#include <cmath>
+#include <csignal>
+#include <cstdint>
+#include <cstdio>
+#include <cstdlib>
+#include <ctime>
+#include <fstream>
+#include <functional>
+#include <iostream>
+#include <list>
+#include <map>
+#include <memory>
+#include <queue>
+#include <set>
+#include <sstream>
+#include <stdexcept>
+#include <string>
+#include <thread>
+#include <tuple>
+#include <unordered_map>
+#include <vector>
+
+namespace unicbor {
+
+using byte = uint8_t;
+using blob = std::vector<byte>;
+
+} /* namespace unicbor */

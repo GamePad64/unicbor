@@ -18,7 +18,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-#include <cborpp/packer.h>
+#include <unicbor/packer.h>
 #include <gtest/gtest.h>
 
 #include "testdata.h"
@@ -26,7 +26,7 @@
 class TestPacker : public ::testing::Test {
 protected:
     void SetUp() {
-        packer_ = new cborpp::packer(os_);
+        packer_ = new unicbor::packer(os_);
     }
 
     void TearDown() {
@@ -35,7 +35,7 @@ protected:
     }
 
     std::ostringstream os_;
-    cborpp::packer *packer_;
+    unicbor::packer *packer_;
 };
 
 TEST_F(TestPacker, int1) {
@@ -94,7 +94,7 @@ TEST_F(TestPacker, int11) {
 }
 
 TEST_F(TestPacker, bigint1) {
-    packer_->pack_tag(cborpp::tag::BIGNUM_POSITIVE);
+    packer_->pack_tag(unicbor::tag::BIGNUM_POSITIVE);
     packer_->pack_bin("\x01\0\0\0\0\0\0\0\0", 9);
     ASSERT_EQ(bigint1, os_.str());
 }
@@ -106,7 +106,7 @@ TEST_F(TestPacker, neg_bigint1) {
 }
 
 TEST_F(TestPacker, neg_bigint2) {
-    packer_->pack_tag(cborpp::tag::BIGNUM_NEGATIVE);
+    packer_->pack_tag(unicbor::tag::BIGNUM_NEGATIVE);
     packer_->pack_bin("\x01\0\0\0\0\0\0\0\0", 9);
     ASSERT_EQ(neg_bigint2, os_.str());
 }
@@ -197,17 +197,17 @@ TEST_F(TestPacker, float13) {
 }
 
 TEST_F(TestPacker, half_limits1) {
-    packer_->pack_half(cborpp::half(INFINITY));
+    packer_->pack_half(unicbor::half(INFINITY));
     ASSERT_EQ(half_limits1, os_.str());
 }
 
 TEST_F(TestPacker, half_limits2) {
-    packer_->pack_half(cborpp::half(NAN));
+    packer_->pack_half(unicbor::half(NAN));
     ASSERT_EQ(half_limits2, os_.str());
 }
 
 TEST_F(TestPacker, half_limits3) {
-    packer_->pack_half(cborpp::half(-INFINITY));
+    packer_->pack_half(unicbor::half(-INFINITY));
     ASSERT_EQ(half_limits3, os_.str());
 }
 
@@ -257,57 +257,57 @@ TEST_F(TestPacker, simple3) {
 }
 
 TEST_F(TestPacker, simple4) {
-    packer_->pack(cborpp::undefined);
+    packer_->pack(unicbor::undefined);
     ASSERT_EQ(simple4, os_.str());
 }
 
 TEST_F(TestPacker, simple5) {
-    packer_->pack(cborpp::simple_value(16));
+    packer_->pack(unicbor::simple_value(16));
     ASSERT_EQ(simple5, os_.str());
 }
 
 TEST_F(TestPacker, simple6) {
-    packer_->pack(cborpp::simple_value(24));
+    packer_->pack(unicbor::simple_value(24));
     ASSERT_EQ(simple6, os_.str());
 }
 
 TEST_F(TestPacker, simple7) {
-    packer_->pack(cborpp::simple_value(255));
+    packer_->pack(unicbor::simple_value(255));
     ASSERT_EQ(simple7, os_.str());
 }
 
 TEST_F(TestPacker, tag1) {
-    packer_->pack(cborpp::tag::DATETIME_STRING);
+    packer_->pack(unicbor::tag::DATETIME_STRING);
     packer_->pack("2013-03-21T20:04:00Z");
     ASSERT_EQ(tag1, os_.str());
 }
 
 TEST_F(TestPacker, tag2) {
-    packer_->pack(cborpp::tag::DATETIME_NUMERIC);
+    packer_->pack(unicbor::tag::DATETIME_NUMERIC);
     packer_->pack(1363896240);
     ASSERT_EQ(tag2, os_.str());
 }
 
 TEST_F(TestPacker, tag3) {
-    packer_->pack(cborpp::tag::DATETIME_NUMERIC);
+    packer_->pack(unicbor::tag::DATETIME_NUMERIC);
     packer_->pack(1363896240.5);
     ASSERT_EQ(tag3, os_.str());
 }
 
 TEST_F(TestPacker, tag4) {
-    packer_->pack(cborpp::tag::EXPECT_HEX);
+    packer_->pack(unicbor::tag::EXPECT_HEX);
     packer_->pack_bin("\x01\x02\x03\x04", 4);
     ASSERT_EQ(tag4, os_.str());
 }
 
 TEST_F(TestPacker, tag5) {
-    packer_->pack(cborpp::tag::ENCODED_CBOR);
+    packer_->pack(unicbor::tag::ENCODED_CBOR);
     packer_->pack_bin("\x64\x49\x45\x54\x46", 5);
     ASSERT_EQ(tag5, os_.str());
 }
 
 TEST_F(TestPacker, tag6) {
-    packer_->pack(cborpp::tag::URI);
+    packer_->pack(unicbor::tag::URI);
     packer_->pack("http://www.example.com", 22);
     ASSERT_EQ(tag6, os_.str());
 }

@@ -20,51 +20,22 @@
  */
 #pragma once
 #include "../constants.h"
-#include "adaptor_base.h"
-#include "../object.h"
 
-namespace cborpp {
+namespace unicbor {
+
+class object;
 
 namespace adaptor {
 
-// Converters
-template <class X>
-struct as<std::vector<X>> {
-	std::vector<X> operator() (const object& o) const {
-		std::vector<X> result;
-		for(const auto& item : o.items()){
-			result.push_back(item.as<X>());
-		}
-		return result;
-	}
+template <class T>
+struct as {
+	T operator() (const object& o) const;
 };
 
-template <class X>
-struct set<std::vector<X>> {
-	void operator() (object& o, std::vector<X> v) const {
-		o.reset(object::type::ARRAY);
-		for(const auto& item : v){
-			o.add_item(item);
-		}
-	}
-};
-
-template <>
-struct as<std::vector<uint8_t>> {
-	std::vector<uint8_t> operator() (const object& o) const {
-		std::vector<uint8_t> result;
-		result.assign(o.payload().begin(), o.payload().end());
-		return result;
-	}
-};
-
-template <>
-struct set<std::vector<uint8_t>> {
-	void operator() (object& o, std::vector<uint8_t> v) const {
-		o.reset(object::type::BYTE_STRING);
-		o.set(v.data(), v.size());
-	}
+template <class T>
+struct set {
+	void operator() (object& o, T v) const;
 };
 
 } /* namespace adaptor */
-} /* namespace cborpp */
+} /* namespace unicbor */

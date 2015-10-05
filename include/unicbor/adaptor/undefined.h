@@ -23,24 +23,17 @@
 #include "adaptor_base.h"
 #include "../object.h"
 
-namespace cborpp {
+namespace unicbor {
 
 namespace adaptor {
 
 // Converters
 template <>
-struct as<object> {
-	object operator() (const object& o) const {
-		return o;
-	}
-};
-
-template <>
-struct set<object> {
-	void operator() (object& o, object v) const {
-		o = v;
+struct set<undefined_t> {
+	void operator() (object& o, undefined_t v) const {
+		o.set_undefined();
 	}
 };
 
 } /* namespace adaptor */
-} /* namespace cborpp */
+} /* namespace unicbor */

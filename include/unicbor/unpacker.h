@@ -24,7 +24,7 @@
 #include "object.h"
 #include "parser_base.h"
 
-namespace cborpp {
+namespace unicbor {
 
 struct parse_error : public error {
 	parse_error() : error("Parse error") {}
@@ -317,4 +317,4 @@ private:
 	}
 };
 
-} /* namespace cborpp */
+} /* namespace unicbor */

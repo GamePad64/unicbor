@@ -23,51 +23,48 @@
 #include "adaptor_base.h"
 #include "../object.h"
 
-namespace cborpp {
+namespace unicbor {
 
 namespace adaptor {
 
-template <>
-struct as<half> {
-	half operator() (const object& o) const {
-		return half(o.get_float());
+// Converters
+template <class X>
+struct as<std::vector<X>> {
+	std::vector<X> operator() (const object& o) const {
+		std::vector<X> result;
+		for(const auto& item : o.items()){
+			result.push_back(item.as<X>());
+		}
+		return result;
+	}
+};
+
+template <class X>
+struct set<std::vector<X>> {
+	void operator() (object& o, std::vector<X> v) const {
+		o.reset(object::type::ARRAY);
+		for(const auto& item : v){
+			o.add_item(item);
+		}
 	}
 };
 
 template <>
-struct set<half> {
-	void operator() (object& o, half v) const {
-		o.set_float(v);
+struct as<std::vector<uint8_t>> {
+	std::vector<uint8_t> operator() (const object& o) const {
+		std::vector<uint8_t> result;
+		result.assign(o.payload().begin(), o.payload().end());
+		return result;
 	}
 };
 
 template <>
-struct as<float> {
-	float operator() (const object& o) const {
-		return float(o.get_float());
-	}
-};
-
-template <>
-struct set<float> {
-	void operator() (object& o, float v) const {
-		o.set_float(v);
-	}
-};
-
-template <>
-struct as<double> {
-	double operator() (const object& o) const {
-		return double(o.get_float());
-	}
-};
-
-template <>
-struct set<double> {
-	void operator() (object& o, double v) const {
-		o.set_float(v);
+struct set<std::vector<uint8_t>> {
+	void operator() (object& o, std::vector<uint8_t> v) const {
+		o.reset(object::type::BYTE_STRING);
+		o.set(v.data(), v.size());
 	}
 };
 
 } /* namespace adaptor */
-} /* namespace cborpp */
+} /* namespace unicbor */

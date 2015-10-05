@@ -24,7 +24,7 @@
 #include "adaptor/adaptor_base.h"
 #include <boost/bimap.hpp>
 
-namespace cborpp {
+namespace unicbor {
 
 class object {
 public:
@@ -206,4 +206,4 @@ private:
 	std::vector<object> items_;
 };
 
-} /* namespace cborpp */
+} /* namespace unicbor */

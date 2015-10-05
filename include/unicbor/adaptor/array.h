@@ -20,22 +20,34 @@
  */
 #pragma once
 #include "../constants.h"
+#include "adaptor_base.h"
+#include "../object.h"
 
-namespace cborpp {
-
-class object;
+namespace unicbor {
 
 namespace adaptor {
 
-template <class T>
-struct as {
-	T operator() (const object& o) const;
+// Converters
+template <class X, size_t N>
+struct as<std::array<X, N>> {
+	std::array<X, N> operator() (const object& o) const {
+		std::array<X, N> result;
+		for(size_t i = 0; i <= std::min(N, o.items().size()); i++){
+			result[i] = o.items().at(i);
+		}
+		return result;
+	}
 };
 
-template <class T>
-struct set {
-	void operator() (object& o, T v) const;
+template <class X, size_t N>
+struct set<std::array<X, N>> {
+	void operator() (object& o, std::array<X, N> v) const {
+		o.reset(object::type::ARRAY);
+		for(const auto& item : v){
+			o.add_item(item);
+		}
+	}
 };
 
 } /* namespace adaptor */
-} /* namespace cborpp */
+} /* namespace unicbor */

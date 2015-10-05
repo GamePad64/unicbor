@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.1)
-project(cborpp VERSION 1.0.0)
+project(unicbor VERSION 1.0.0)
 
-add_library(cborpp INTERFACE)
+add_library(unicbor INTERFACE)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
 include(Dart)
@@ -11,13 +11,13 @@ include(Dart)
 #============================================================================
 
 ### Setting compiler properties
-target_compile_features(cborpp INTERFACE cxx_auto_type cxx_binary_literals cxx_nullptr cxx_range_for)
+target_compile_features(unicbor INTERFACE cxx_auto_type cxx_binary_literals cxx_nullptr cxx_range_for)
 SET(CMAKE_CXX_STANDARD_REQUIRED ON)
 SET(CMAKE_CXX_STANDARD 14)
 SET(CMAKE_CXX_EXTENSIONS OFF)
 
 target_include_directories(
-        cborpp
+        unicbor
         INTERFACE
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/include>"
         "$<INSTALL_INTERFACE:include>"
@@ -59,12 +59,12 @@ write_basic_package_version_file(
 configure_file("cmake/Config.cmake.in" "${project_config}" @ONLY)
 
 install(
-        TARGETS cborpp
+        TARGETS unicbor
         EXPORT "${targets_export_name}"
         INCLUDES DESTINATION "${include_install_dir}"
 )
 
-install(DIRECTORY "include/cborpp" DESTINATION "${include_install_dir}")
+install(DIRECTORY "include/unicbor" DESTINATION "${include_install_dir}")
 
 install(
         FILES "${project_config}" "${version_config}"

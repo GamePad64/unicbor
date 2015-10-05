@@ -21,7 +21,7 @@
 #pragma once
 #include "pch.h"
 
-namespace cborpp {
+namespace unicbor {
 
 struct undefined_t {};
 undefined_t undefined;
@@ -105,4 +105,4 @@ enum class tag : uint64_t {
 	STRINGREF_NAMESPACE = 256
 };
 
-} /* namespace cborpp */
+} /* namespace unicbor */

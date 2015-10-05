@@ -19,28 +19,36 @@
  * THE SOFTWARE.
  */
 #pragma once
-#include "pch.h"
+#include "../constants.h"
+#include "adaptor_base.h"
+#include "../object.h"
 
-namespace cborpp {
+namespace unicbor {
 
-struct error : public std::runtime_error {
-	error() : std::runtime_error("UniCBOR error") {}
-	error(const char* what) : std::runtime_error(what) {}
-};
-struct add_mismatch : public error {
-	add_mismatch() : error("Items can be added only to sequence types") {}
-};
-struct complete_object : public error {
-	complete_object() : error("Object is complete. You cannot add new elements to it") {}
-};
-struct indefinite_sequence_mismatch : public error {
-	indefinite_sequence_mismatch() : error("Indefinite sequence started as one type, ended as another") {}
-};
-struct payload_too_big : public error {
-	payload_too_big() : error("Added payload is bigger, than payload type, holding it") {}
-};
-struct multiple_payloads_started : public error {
-	multiple_payloads_started() : error("Only one payload allowed") {}
+namespace adaptor {
+
+// Converters
+template <class X, class Y>
+struct as<std::map<X, Y>> {
+	std::map<X, Y> operator() (const object& o) const {
+		std::map<X, Y> result;
+		for(auto it = o.items().cbegin(); it < o.items().cend(); it++){
+			result.insert({it->as<X>(), (++it)->as<Y>()});
+		}
+		return result;
+	}
 };
 
-} /* namespace cborpp */
+template <class X, class Y>
+struct set<std::map<X, Y>> {
+	void operator() (object& o, std::map<X, Y> v) const {
+		o.reset(object::type::MAP);
+		for(auto& item_pair : v){
+			o.add_item(item_pair.first);
+			o.add_item(item_pair.second);
+		}
+	}
+};
+
+} /* namespace adaptor */
+} /* namespace unicbor */

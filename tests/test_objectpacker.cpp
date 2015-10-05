@@ -18,8 +18,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-#include <cborpp/object.h>
-#include <cborpp/packer.h>
+#include <unicbor/object.h>
+#include <unicbor/packer.h>
 #include <gtest/gtest.h>
 
 #include "testdata.h"
@@ -27,8 +27,8 @@
 class TestObjectPacker : public ::testing::Test {
 protected:
 	void SetUp(){
-		object_ = new cborpp::object();
-		packer_ = new cborpp::packer(os_);
+		object_ = new unicbor::object();
+		packer_ = new unicbor::packer(os_);
 	}
 
 	void TearDown(){
@@ -37,8 +37,8 @@ protected:
 	}
 
 	std::ostringstream os_;
-	cborpp::object* object_;
-	cborpp::packer* packer_;
+	unicbor::object* object_;
+	unicbor::packer* packer_;
 };
 
 TEST_F(TestObjectPacker, int1){
@@ -108,7 +108,7 @@ TEST_F(TestObjectPacker, int11){
 }
 
 TEST_F(TestObjectPacker, bigint1){
-	object_->add_tag(cborpp::tag::BIGNUM_POSITIVE);
+	object_->add_tag(unicbor::tag::BIGNUM_POSITIVE);
 	object_->set_bin("\x01\0\0\0\0\0\0\0\0", 9);
 	packer_->pack(*object_);
 	ASSERT_EQ(bigint1, os_.str());
@@ -122,7 +122,7 @@ TEST_F(TestObjectPacker, neg_bigint1){
 }
 
 TEST_F(TestObjectPacker, neg_bigint2){
-	object_->add_tag(cborpp::tag::BIGNUM_NEGATIVE);
+	object_->add_tag(unicbor::tag::BIGNUM_NEGATIVE);
 	object_->set_bin("\x01\0\0\0\0\0\0\0\0", 9);
 	packer_->pack(*object_);
 	ASSERT_EQ(neg_bigint2, os_.str());
@@ -231,19 +231,19 @@ TEST_F(TestObjectPacker, float13){
 }
 
 TEST_F(TestObjectPacker, half_limits1){
-	object_->set(cborpp::half(INFINITY));
+	object_->set(unicbor::half(INFINITY));
 	packer_->pack(*object_);
 	ASSERT_EQ(half_limits1, os_.str());
 }
 
 TEST_F(TestObjectPacker, half_limits2){
-	object_->set(cborpp::half(NAN));
+	object_->set(unicbor::half(NAN));
 	packer_->pack(*object_);
 	ASSERT_EQ(half_limits2, os_.str());
 }
 
 TEST_F(TestObjectPacker, half_limits3){
-	object_->set(cborpp::half(-INFINITY));
+	object_->set(unicbor::half(-INFINITY));
 	packer_->pack(*object_);
 	ASSERT_EQ(half_limits3, os_.str());
 }
@@ -303,66 +303,66 @@ TEST_F(TestObjectPacker, simple3){
 }
 
 TEST_F(TestObjectPacker, simple4){
-	object_->set(cborpp::undefined);
+	object_->set(unicbor::undefined);
 	packer_->pack(*object_);
 	ASSERT_EQ(simple4, os_.str());
 }
 
 TEST_F(TestObjectPacker, simple5){
-	object_->set(cborpp::simple_value(16));
+	object_->set(unicbor::simple_value(16));
 	packer_->pack(*object_);
 	ASSERT_EQ(simple5, os_.str());
 }
 
 TEST_F(TestObjectPacker, simple6){
-	object_->set(cborpp::simple_value(24));
+	object_->set(unicbor::simple_value(24));
 	packer_->pack(*object_);
 	ASSERT_EQ(simple6, os_.str());
 }
 
 TEST_F(TestObjectPacker, simple7){
-	object_->set(cborpp::simple_value(255));
+	object_->set(unicbor::simple_value(255));
 	packer_->pack(*object_);
 	ASSERT_EQ(simple7, os_.str());
 }
 
 TEST_F(TestObjectPacker, tag1){
-	object_->add_tag(cborpp::tag::DATETIME_STRING);
+	object_->add_tag(unicbor::tag::DATETIME_STRING);
 	object_->set("2013-03-21T20:04:00Z");
 	packer_->pack(*object_);
 	ASSERT_EQ(tag1, os_.str());
 }
 
 TEST_F(TestObjectPacker, tag2){
-	object_->add_tag(cborpp::tag::DATETIME_NUMERIC);
+	object_->add_tag(unicbor::tag::DATETIME_NUMERIC);
 	object_->set(1363896240);
 	packer_->pack(*object_);
 	ASSERT_EQ(tag2, os_.str());
 }
 
 TEST_F(TestObjectPacker, tag3){
-	object_->add_tag(cborpp::tag::DATETIME_NUMERIC);
+	object_->add_tag(unicbor::tag::DATETIME_NUMERIC);
 	object_->set(1363896240.5);
 	packer_->pack(*object_);
 	ASSERT_EQ(tag3, os_.str());
 }
 
 TEST_F(TestObjectPacker, tag4){
-	object_->add_tag(cborpp::tag::EXPECT_HEX);
+	object_->add_tag(unicbor::tag::EXPECT_HEX);
 	object_->set_bin("\x01\x02\x03\x04", 4);
 	packer_->pack(*object_);
 	ASSERT_EQ(tag4, os_.str());
 }
 
 TEST_F(TestObjectPacker, tag5){
-	object_->add_tag(cborpp::tag::ENCODED_CBOR);
+	object_->add_tag(unicbor::tag::ENCODED_CBOR);
 	object_->set_bin("\x64\x49\x45\x54\x46", 5);
 	packer_->pack(*object_);
 	ASSERT_EQ(tag5, os_.str());
 }
 
 TEST_F(TestObjectPacker, tag6){
-	object_->add_tag(cborpp::tag::URI);
+	object_->add_tag(unicbor::tag::URI);
 	object_->set("http://www.example.com");
 	packer_->pack(*object_);
 	ASSERT_EQ(tag6, os_.str());
@@ -436,7 +436,7 @@ TEST_F(TestObjectPacker, array2){
 }
 
 TEST_F(TestObjectPacker, array3){
-	object_->reset(cborpp::object::ARRAY);
+	object_->reset(unicbor::object::ARRAY);
 	object_->add_item(1);
 	object_->add_item(std::vector<int>({2, 3}));
 	object_->add_item(std::vector<int>({4, 5}));
@@ -451,7 +451,7 @@ TEST_F(TestObjectPacker, array4){
 }
 
 TEST_F(TestObjectPacker, array4_for){
-	object_->reset(cborpp::object::ARRAY);
+	object_->reset(unicbor::object::ARRAY);
 	for(int i = 1; i <= 25; i++)
 		object_->add_item(i);
 	packer_->pack(*object_);
@@ -472,7 +472,7 @@ TEST_F(TestObjectPacker, map2){
 }
 
 TEST_F(TestObjectPacker, map3){
-	object_->reset(cborpp::object::MAP);
+	object_->reset(unicbor::object::MAP);
 	object_->add_item("a");
 	object_->add_item(1);
 	object_->add_item("b");
@@ -491,7 +491,7 @@ TEST_F(TestObjectPacker, map3_stl){
 }*/
 
 TEST_F(TestObjectPacker, map4){
-	object_->reset(cborpp::object::ARRAY);
+	object_->reset(unicbor::object::ARRAY);
 	object_->add_item("a");
 	object_->add_item(std::map<std::string, std::string>({{"b", "c"}}));
 
@@ -545,7 +545,7 @@ TEST_F(TestObjectPacker, indef4){
 	object_->add_element(1);
 	object_->add_element(std::vector<uint8_t>({2, 3}));
 
-	cborpp::object& nested = object_->add_element();
+	unicbor::object& nested = object_->add_element();
 	nested.start_array();
 	nested.add_element(4);
 	nested.add_element(5);
@@ -573,7 +573,7 @@ TEST_F(TestObjectPacker, indef6){
 	object_->add_element(1);
 	object_->add_element(std::vector<uint8_t>({2, 3}));
 
-	cborpp::object& nested = object_->add_element();
+	unicbor::object& nested = object_->add_element();
 	nested.start_array();
 	nested.add_element(4);
 	nested.add_element(5);
@@ -589,7 +589,7 @@ TEST_F(TestObjectPacker, indef7){
 	object_->start_array(3);
 	object_->add_element(1);
 
-	cborpp::object& nested = object_->add_element();
+	unicbor::object& nested = object_->add_element();
 	nested.start_array();
 	nested.add_element(2);
 	nested.add_element(3);
@@ -620,7 +620,7 @@ TEST_F(TestObjectPacker, indef9){
 	object_->add_element(std::make_pair("a", 1));
 	object_->add_element("b");
 
-	cborpp::object& nested = object_->add_element();
+	unicbor::object& nested = object_->add_element();
 	nested.start_array();
 	nested.add_element(2);
 	nested.add_element(3);
@@ -636,7 +636,7 @@ TEST_F(TestObjectPacker, indef10){
 	object_->start_array(2);
 	object_->add_element("a");
 
-	cborpp::object& nested = object_->add_element();
+	unicbor::object& nested = object_->add_element();
 	nested.start_map();
 	nested.add_element("b");
 	nested.add_element("c");

@@ -18,10 +18,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-#include <cborpp/object.h>
-#include <cborpp/packer.h>
-#include <cborpp/unpacker.h>
-#include <cborpp/debug_printer.h>
+#include <unicbor/object.h>
+#include <unicbor/packer.h>
+#include <unicbor/unpacker.h>
+#include <unicbor/debug_printer.h>
 #include <gtest/gtest.h>
 
 #include "testdata.h"
@@ -29,8 +29,8 @@
 class TestObjectPrinter : public ::testing::Test {
 protected:
 	void SetUp(){
-		object_ = new cborpp::object();
-		unpacker_ = new cborpp::unpacker(*object_);
+		object_ = new unicbor::object();
+		unpacker_ = new unicbor::unpacker(*object_);
 	}
 
 	void TearDown(){
@@ -39,11 +39,11 @@ protected:
 
 	void unpack(const std::string& packed_str) {
 		unpacker_->add_bytes(packed_str.data(), packed_str.size());
-		ASSERT_TRUE(false) << cborpp::debug_string(*object_);
+		ASSERT_TRUE(false) << unicbor::debug_string(*object_);
 	}
 
-	cborpp::object* object_;
-	cborpp::unpacker* unpacker_;
+	unicbor::object* object_;
+	unicbor::unpacker* unpacker_;
 };
 /*
 TEST_F(TestObjectPrinter, int1){

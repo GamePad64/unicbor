@@ -24,7 +24,7 @@
 #include "packer.h"
 #include "unpacker.h"
 
-namespace cborpp {
+namespace unicbor {
 
 std::string debug_string(object& o) {
 	std::ostringstream result;
@@ -84,4 +84,4 @@ std::string debug_string(object& o) {
 	return result.str();
 }
 
-} /* namespace cborpp */
+} /* namespace unicbor */

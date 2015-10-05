@@ -22,7 +22,7 @@
 
 #include "constants.h"
 
-namespace cborpp {
+namespace unicbor {
 
 class parser_base {
 protected:
@@ -51,4 +51,4 @@ protected:
 	bool is_payload_type(){return is_payload_type(current_container_.top().first);}
 };
 
-} /* namespace cborpp */
+} /* namespace unicbor */

@@ -19,50 +19,28 @@
  * THE SOFTWARE.
  */
 #pragma once
+#include "../constants.h"
+#include "adaptor_base.h"
+#include "../object.h"
 
-#include <half/half.hpp>
+namespace unicbor {
 
-// Boost
-#include <boost/endian/arithmetic.hpp>
-#include <boost/lexical_cast.hpp>
+namespace adaptor {
 
-#include <boost/predef.h>
-#include <boost/bimap.hpp>
+// Converters
+template <>
+struct as<const char*> {
+	bool operator() (const object& o) const {
+		return (const char*)o.payload().data();
+	}
+};
 
-#include <boost/io/ios_state.hpp>
+template <>
+struct set<const char*> {
+	void operator() (object& o, const char* v) const {
+		o.set_string(v, strlen(v));
+	}
+};
 
-#include <boost/property_tree/info_parser.hpp>
-#include <boost/property_tree/json_parser.hpp>
-#include <boost/property_tree/ptree.hpp>
-
-// Standard C++ Libraries
-#include <array>
-#include <chrono>
-#include <cmath>
-#include <csignal>
-#include <cstdint>
-#include <cstdio>
-#include <cstdlib>
-#include <ctime>
-#include <fstream>
-#include <functional>
-#include <iostream>
-#include <list>
-#include <map>
-#include <memory>
-#include <queue>
-#include <set>
-#include <sstream>
-#include <stdexcept>
-#include <string>
-#include <thread>
-#include <tuple>
-#include <unordered_map>
-#include <vector>
-
-namespace cborpp {
-
-using byte = uint8_t;
-using blob = std::vector<byte>;
-
-} /* namespace cborpp */
+} /* namespace adaptor */
+} /* namespace unicbor */

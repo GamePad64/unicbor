@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.1)
 project(unicbor VERSION 1.0.0)
 
+SET(CMAKE_CXX_STANDARD_REQUIRED ON)
+SET(CMAKE_CXX_STANDARD 14)
+SET(CMAKE_CXX_EXTENSIONS OFF)
+
 add_library(unicbor INTERFACE)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
@@ -12,9 +16,6 @@ include(Dart)
 
 ### Setting compiler properties
 target_compile_features(unicbor INTERFACE cxx_auto_type cxx_binary_literals cxx_nullptr cxx_range_for)
-SET(CMAKE_CXX_STANDARD_REQUIRED ON)
-SET(CMAKE_CXX_STANDARD 14)
-SET(CMAKE_CXX_EXTENSIONS OFF)
 
 target_include_directories(
         unicbor

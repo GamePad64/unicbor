@@ -20,7 +20,10 @@ install:
   - ./b2 headers
 before_script:
   - cd ../..
+  - rm -rf build/
+  - mkdir build
+  - cd build
 script:
-  - cmake .
+  - cmake -DCMAKE_CXX_COMPILER=${COMPILER} .
   - cmake --build .
   - make test
